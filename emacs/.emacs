@@ -29,6 +29,11 @@
       mac-command-modifier 'meta
       x-select-enable-clipboard t)
 
+;; For Homebrew
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+
+
 ;; Clojure
 ;(require 'nrepl)
 
