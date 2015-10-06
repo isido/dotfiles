@@ -20,10 +20,6 @@
 
 (package-initialize)
 
-;; CCrypt from homebrew, adjust on linux
-(setq load-path (cons "/usr/local/Cellar/ccrypt/1.9/share/emacs/site-lisp/" load-path))
-(require 'ps-ccrypt "ps-ccrypt.el")
-
 ;; OS X tweaks
 (setq mac-option-modifier nil
       mac-command-modifier 'meta
@@ -33,6 +29,8 @@
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; CCrypt
+(require 'ps-ccrypt)
 
 ;; Clojure
 ;(require 'nrepl)
