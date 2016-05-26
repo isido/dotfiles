@@ -71,5 +71,5 @@
 
 ; Utop
 (autoload 'utop "utop" "Toplevel for OCaml" t)
-(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
-(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+(autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
+(add-hook 'tuareg-mode-hook 'utop-minor-mode)
