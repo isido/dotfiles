@@ -3,7 +3,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t))
+ '(inhibit-startup-screen t)
+ '(package-selected-packages
+   (quote
+    (go-eldoc yaml-mode ocp-indent inf-ruby go-mode ensime))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -41,7 +44,7 @@
   (go-eldoc-setup)
   (setq gofmt-command "goimports")
   (local-set-key (kbd "M-.") 'godef-jump)
-  (setq compile-command "go build -v && go test -v && go vet")
+  (setq compile-command "go build -v && go test -v && go vet -shadow")
   (define-key (current-local-map) "\C-c\C-c" 'compile)
   (add-hook 'before-save-hook 'gofmt-before-save))
 
