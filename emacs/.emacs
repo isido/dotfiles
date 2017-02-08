@@ -44,7 +44,7 @@
   (go-eldoc-setup)
   (setq gofmt-command "goimports")
   (local-set-key (kbd "M-.") 'godef-jump)
-  (setq compile-command "go build -v && go test -v && go vet -shadow")
+  (setq compile-command "go build -v && go test -v && go vet")
   (define-key (current-local-map) "\C-c\C-c" 'compile)
   (add-hook 'before-save-hook 'gofmt-before-save))
 
