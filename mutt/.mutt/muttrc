@@ -1,0 +1,38 @@
+# source personal information
+# put from, realname there
+# for password, use  
+source "~/.mutt/personal"
+
+# source secrets
+# encrypt: $ gpg -r your.email@example.com -e secrets
+# put imap_user, imap_pass there
+source "gpg -d ~/.mutt/secrets.gpg |"
+
+# fastmail options
+set my_server = mail.messagingengine.com
+set my_smtp_server = mail.messagingengine.com
+
+set spoolfile = "imaps://mail.messagingengine.com"
+
+set folder = imaps://$my_server/INBOX
+set record = "+Sent Items"
+set postponed = "+Drafts"
+set trash = "+Trash"
+set mbox = "+Archive"
+
+set smtp_pass = $imap_pass
+set smtp_url = smtp://$imap_user@$my_smtp_server:587/
+set ssl_starttls = yes
+
+# Misc
+set editor="vim"
+
+# Header options
+ignore *
+unignore from: to: cc: date: subject:
+unhdr_order *
+hdr_order from: to: cc: date: subject:
+
+# Index
+set sort = threads
+

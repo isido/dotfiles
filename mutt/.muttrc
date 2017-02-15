@@ -1,9 +1,0 @@
-# Header options
-ignore *
-unignore from: to: cc: date: subject:
-unhdr_order *
-hdr_order from: to: cc: date: subject:
-
-# Index
-set sort = threads
-
