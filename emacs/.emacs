@@ -1,38 +1,36 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(inhibit-startup-screen t)
- '(package-selected-packages
-   (quote
-    (go-eldoc yaml-mode ocp-indent inf-ruby go-mode ensime))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(setq inhibit-startup-screen t)
+
+(setq custom-file "~/.emacs.d/custom-settings.el")
+(load custom-file t)
 
 ;; Packages
 (require 'package)
 (add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
+	'("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
-	'("melpa" . "http://melpa.milkbox.net/packages/"))
+	'("melpa" . "https://melpa.org/packages/") t)
 
 (package-initialize)
+
+;; use-package
+(unless (package-installed-p 'use-package)
+	(package-refresh-contents)
+	(package-install 'use-package))
 
 ;; OS X tweaks
 (setq mac-option-modifier nil
       mac-command-modifier 'meta
       x-select-enable-clipboard t)
 
-;; For Homebrew
+;; Homebrew
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-;; CCrypt
+;; C
+(setq c-default-style "linux"
+      c-basic-offset 4)
+
+;; CCrypt (not in repositories)
 (require 'ps-ccrypt)
 
 ;; Clojure
@@ -50,12 +48,20 @@
 
 (add-hook 'go-mode-hook 'go-mode-setup)
 
-;; Ruby
-(require 'inf-ruby)
+;; Haskell
+(use-package haskell-mode
+  :ensure t)
 
-;; Scala
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+(use-package intero
+  :ensure t
+  :config
+  (add-hook 'haskell-mode-hook 'intero-mode))
+
+;; Move-text
+(use-package move-text
+  :ensure t
+  :config
+  (move-text-default-bindings))
 
 ;; OCaml
 
@@ -76,3 +82,11 @@
 (autoload 'utop "utop" "Toplevel for OCaml" t)
 (autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
 (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+
+;; Ruby
+(require 'inf-ruby)
+
+;; Scala
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
