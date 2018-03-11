@@ -40,6 +40,12 @@
 ;; Clojure
 ;(require 'nrepl)
 
+;; Elm
+(use-package elm-mode
+  :ensure t
+  :config
+  (setq-default elm-format-on-save t))
+
 ;; Go
 ;(require 'go-mode)
 ;(defun go-mode-setup ()
