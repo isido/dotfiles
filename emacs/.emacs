@@ -26,6 +26,10 @@
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
+;; Auctex
+(use-package tex
+  :ensure auctex)
+
 ;; C
 (setq c-default-style "linux"
       c-basic-offset 4)
@@ -37,16 +41,16 @@
 ;(require 'nrepl)
 
 ;; Go
-(require 'go-mode)
-(defun go-mode-setup ()
-  (go-eldoc-setup)
-  (setq gofmt-command "goimports")
-  (local-set-key (kbd "M-.") 'godef-jump)
-  (setq compile-command "go build -v && go test -v && go vet")
-  (define-key (current-local-map) "\C-c\C-c" 'compile)
-  (add-hook 'before-save-hook 'gofmt-before-save))
+;(require 'go-mode)
+;(defun go-mode-setup ()
+;  (go-eldoc-setup)
+;  (setq gofmt-command "goimports")
+;  (local-set-key (kbd "M-.") 'godef-jump)
+;  (setq compile-command "go build -v && go test -v && go vet")
+;  (define-key (current-local-map) "\C-c\C-c" 'compile)
+;  (add-hook 'before-save-hook 'gofmt-before-save))
 
-(add-hook 'go-mode-hook 'go-mode-setup)
+;(add-hook 'go-mode-hook 'go-mode-setup)
 
 ;; Haskell
 (use-package haskell-mode
@@ -69,24 +73,24 @@
 (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
 (add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 
-(require 'ocp-indent)
+;(require 'ocp-indent)
 
 ; Merlin
-(require 'merlin)
-(add-hook 'tuareg-mode-hook 'merlin-mode t)
-(add-hook 'caml-mode-hook 'merlin-mode t)
-(setq merlin-use-auto-complete-mode 'easy)
-(setq merlin-command 'opam)
+;(require 'merlin)
+;(add-hook 'tuareg-mode-hook 'merlin-mode t)
+;(add-hook 'caml-mode-hook 'merlin-mode t)
+;(setq merlin-use-auto-complete-mode 'easy)
+;(setq merlin-command 'opam)
 
 ; Utop
-(autoload 'utop "utop" "Toplevel for OCaml" t)
-(autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
-(add-hook 'tuareg-mode-hook 'utop-minor-mode)
+;(autoload 'utop "utop" "Toplevel for OCaml" t)
+;(autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
+;(add-hook 'tuareg-mode-hook 'utop-minor-mode)
 
 ;; Ruby
-(require 'inf-ruby)
+;(require 'inf-ruby)
 
 ;; Scala
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+;(require 'ensime)
+;(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
