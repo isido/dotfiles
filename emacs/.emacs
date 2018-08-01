@@ -28,7 +28,9 @@
 
 ;; Auctex
 (use-package tex
-  :ensure auctex)
+  :ensure auctex
+  :config
+  (add-hook 'LaTeX-mode-hook #'turn-on-flyspell))
 
 ;; C
 (setq c-default-style "linux"
