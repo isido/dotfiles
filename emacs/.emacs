@@ -95,6 +95,10 @@
 ;(autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
 ;(add-hook 'tuareg-mode-hook 'utop-minor-mode)
 
+;; Racket
+(use-package racket-mode
+  :ensure t)
+
 ;; Ruby
 ;(require 'inf-ruby)
 
