@@ -102,6 +102,15 @@
 ;; Ruby
 ;(require 'inf-ruby)
 
+;; Rust
+(use-package rust-mode
+  :ensure t)
+
+(use-package cargo
+  :ensure t
+  :config
+  (add-hook 'rust-mode-hook 'cargo-minor-mode))
+
 ;; Scala
 ;(require 'ensime)
 ;(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
