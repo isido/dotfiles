@@ -3,6 +3,8 @@
 (setq custom-file "~/.emacs.d/custom-settings.el")
 (load custom-file t)
 
+(setq compilation-ask-about-save nil)
+
 ;; Packages
 (require 'package)
 (add-to-list 'package-archives
@@ -104,7 +106,9 @@
 
 ;; Rust
 (use-package rust-mode
-  :ensure t)
+  :ensure t
+  :config
+  (setq rust-format-on-save t))
 
 (use-package cargo
   :ensure t
