@@ -38,6 +38,9 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 
+(add-hook 'c-mode-common-hook
+	  (lambda () (define-key c-mode-base-map (kbd "C-c C-c") 'compile)))
+
 ;; CCrypt (not in repositories)
 (require 'ps-ccrypt)
 
