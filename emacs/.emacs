@@ -54,16 +54,20 @@
   (setq-default elm-format-on-save t))
 
 ;; Go
-;(require 'go-mode)
-;(defun go-mode-setup ()
-;  (go-eldoc-setup)
-;  (setq gofmt-command "goimports")
-;  (local-set-key (kbd "M-.") 'godef-jump)
-;  (setq compile-command "go build -v && go test -v && go vet")
-;  (define-key (current-local-map) "\C-c\C-c" 'compile)
-;  (add-hook 'before-save-hook 'gofmt-before-save))
+; $ go get golang.org/x/tools/cmd/goimports
+(use-package go-mode
+  :ensure t
+  :config
+  (setq gofmt-command "goimports")
+  (setq compile-command "go build -v && go test -v && go vet")
+  (add-hook 'before-save-hook 'gofmt-before-save)
+  :bind 
+  (:map go-mode-map
+    ("C-C C-C" . compile)))
 
-;(add-hook 'go-mode-hook 'go-mode-setup)
+; Do I need these?
+;  (go-eldoc-setup)
+;  (local-set-key (kbd "M-.") 'godef-jump)
 
 ;; Haskell
 (use-package haskell-mode
@@ -99,6 +103,13 @@
 ;(autoload 'utop "utop" "Toplevel for OCaml" t)
 ;(autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
 ;(add-hook 'tuareg-mode-hook 'utop-minor-mode)
+
+;; Python
+; pip3 install jedi rope flake8 autopep8 yapf black
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
 
 ;; Racket
 (use-package racket-mode
