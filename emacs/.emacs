@@ -71,12 +71,20 @@
 
 ;; Haskell
 (use-package haskell-mode
-  :ensure t)
+  :ensure t
+  :bind (:map haskell-mode-map
+	      ("C-C C-l" . haskell-process-load-file)))
 
-(use-package intero
+(use-package company-ghci
   :ensure t
   :config
-  (add-hook 'haskell-mode-hook 'intero-mode))
+  (push 'company-ghci company-backends)
+  (add-hook 'haskell-mode-hook 'company-mode))
+
+;(use-package intero
+;  :ensure t
+;  :config
+;  (add-hook 'haskell-mode-hook 'intero-mode))
 
 ;; Move-text
 (use-package move-text
