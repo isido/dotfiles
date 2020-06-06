@@ -115,7 +115,10 @@
 (use-package elpy
   :ensure t
   :init
-  (elpy-enable))
+  (elpy-enable)
+  :config
+  (setq py-python-command "python3"))
+
 
 ;; Racket
 (use-package racket-mode
