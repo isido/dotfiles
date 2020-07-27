@@ -32,12 +32,36 @@
   :config
   (add-hook 'LaTeX-mode-hook #'turn-on-flyspell))
 
-;; C
+;; C, linux kernel c-style
+(defun c-lineup-arglist-tabs-only (ignored)
+  "Line up argument lists by tabs, not spaces"
+  (let* ((anchor (c-langelem-pos c-syntactic-element))
+         (column (c-langelem-2nd-pos c-syntactic-element))
+         (offset (- (1+ column) anchor))
+         (steps (floor offset c-basic-offset)))
+    (* (max steps 1)
+       c-basic-offset)))
+
+(defun activate-linux-kernel-c-style ()
+  "Settings for Linux Kernel development, see https://www.kernel.org/doc/html/latest/process/coding-style.html"
+  (interactive)
+  (setq indent-tabs-mode t)
+  (setq show-trailing-whitespace t)
+  (c-set-style "linux-tabs-only"))
+
 (setq c-default-style "linux"
       c-basic-offset 4)
 
 (add-hook 'c-mode-common-hook
-	  (lambda () (define-key c-mode-base-map (kbd "C-c C-c") 'compile)))
+	  (lambda ()
+	    (c-add-style
+	     "linux-tabs-only"
+	     '("linux" (c-offsets-alist
+                        (arglist-cont-nonempty
+                         c-lineup-gcc-asm-reg
+                         c-lineup-arglist-tabs-only))))
+	    (define-key c-mode-base-map (kbd "C-c C-c") 'compile)
+	    (define-key c-mode-base-map (kbd "C-c C-l") 'activate-linux-kernel-c-style)))
 
 ;; CCrypt (not in repositories)
 (require 'ps-ccrypt)
