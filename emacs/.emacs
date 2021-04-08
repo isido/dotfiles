@@ -108,6 +108,15 @@
 ;  :config
 ;  (add-hook 'haskell-mode-hook 'intero-mode))
 
+;; Julia
+(use-package julia-mode
+  :ensure t)
+
+(use-package julia-repl
+  :ensure t
+  :config
+  (add-hook 'julia-mode-hook 'julia-repl-mode))
+
 ;; Move-text
 (use-package move-text
   :ensure t
@@ -117,8 +126,8 @@
 ;; OCaml
 
 ; Opam
-(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+;(setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
+;(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
 
 ;(require 'ocp-indent)
 
