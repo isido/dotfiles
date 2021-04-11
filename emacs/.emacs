@@ -1,10 +1,3 @@
-(setq inhibit-startup-screen t)
-
-(setq custom-file "~/.emacs.d/custom-settings.el")
-(load custom-file t)
-
-(setq compilation-ask-about-save nil)
-
 ;; Packages
 (require 'package)
 (add-to-list 'package-archives
@@ -17,14 +10,29 @@
 	(package-refresh-contents)
 	(package-install 'use-package))
 
-;; OS X tweaks
-(setq mac-option-modifier nil
+;; Misc-configuration
+(use-package emacs
+  :init
+  ;; macOS-tweaks
+  (setq mac-option-modifier nil
       mac-command-modifier 'meta
       x-select-enable-clipboard t)
+  ;; Homebrew
+  (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+    (normal-top-level-add-subdirs-to-load-path))
 
-;; Homebrew
-(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
-  (normal-top-level-add-subdirs-to-load-path))
+  (setq inhibit-startup-screen t)
+  (tool-bar-mode -1)
+;  (set-default-font "Inconsolata-12")
+
+
+  (setq custom-file "~/.emacs.d/custom-settings.el")
+  (load custom-file t)
+
+  (setq compilation-ask-about-save nil)
+
+  (setq ispell-program-name (executable-find "hunspell")
+	ispell-dictionary "en_GB"))
 
 ;; Auctex
 (use-package tex
