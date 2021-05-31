@@ -1,4 +1,3 @@
-;; Please do not use this information to create a targeted attack against me
 ;; Packages
 (require 'package)
 (add-to-list 'package-archives
