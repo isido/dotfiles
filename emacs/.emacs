@@ -74,15 +74,6 @@
 ;; CCrypt (not in repositories)
 (require 'ps-ccrypt)
 
-;; Clojure
-;(require 'nrepl)
-
-;; Elm
-(use-package elm-mode
-  :ensure t
-  :config
-  (setq-default elm-format-on-save t))
-
 ;; Go
 ; $ go get golang.org/x/tools/cmd/goimports
 (use-package go-mode
@@ -94,10 +85,6 @@
   :bind 
   (:map go-mode-map
     ("C-C C-C" . compile)))
-
-; Do I need these?
-;  (go-eldoc-setup)
-;  (local-set-key (kbd "M-.") 'godef-jump)
 
 ;; Haskell
 (use-package haskell-mode
@@ -111,11 +98,6 @@
   (push 'company-ghci company-backends)
   (add-hook 'haskell-mode-hook 'company-mode))
 
-;(use-package intero
-;  :ensure t
-;  :config
-;  (add-hook 'haskell-mode-hook 'intero-mode))
-
 ;; Julia
 (use-package julia-mode
   :ensure t)
@@ -123,7 +105,34 @@
 (use-package julia-repl
   :ensure t
   :config
-  (add-hook 'julia-mode-hook 'julia-repl-mode))
+  (add-hook 'julia-mode-hook 'julia-repl-mode)
+  (julia-repl-set-terminal-backend 'vterm)
+  (setq vterm-kill-buffer-on-exit nil))
+
+;; Lisp
+(use-package slime
+  :ensure t
+  :config
+  (setq inferior-lisp-program "sbcl"))
+
+(use-package paredit
+  :ensure t
+  :init
+  (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+  (add-hook 'cider-repl-mode-hook #'enable-paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+  (add-hook 'racket-mode #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook #'enable-paredit-mode)
+  :config
+  (show-paren-mode t)
+  :bind (("M-[" . paredit-wrap-square)
+         ("M-{" . paredit-wrap-curly))
+  :diminish nil)
+
 
 ;; Move-text
 (use-package move-text
@@ -151,6 +160,19 @@
 ;(autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
 ;(add-hook 'tuareg-mode-hook 'utop-minor-mode)
 
+;; Org-roam
+(use-package org-roam
+  :ensure t
+  :init
+  (setq org-roam-directory (file-truename "~/Dropbox/notes"))
+  (setq org-roam-v2-ack t)
+  (org-roam-db-autosync-mode)
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-setup))
+
 ;; Python
 ; pip3 install jedi rope flake8 autopep8 yapf black
 (use-package elpy
@@ -160,13 +182,16 @@
   :config
   (setq py-python-command "python3"))
 
-
 ;; Racket
 (use-package racket-mode
   :ensure t)
 
-;; Ruby
-;(require 'inf-ruby)
+;; Rainbow Delimiters
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
 
 ;; Rust
 (use-package rust-mode
@@ -178,8 +203,4 @@
   :ensure t
   :config
   (add-hook 'rust-mode-hook 'cargo-minor-mode))
-
-;; Scala
-;(require 'ensime)
-;(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
 
