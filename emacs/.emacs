@@ -30,7 +30,7 @@
   (load custom-file t)
 
   (setq compilation-ask-about-save nil)
-
+  ;; remember to install
   (setq ispell-program-name (executable-find "hunspell")
 	ispell-dictionary "en_GB"))
 
@@ -104,10 +104,12 @@
 
 (use-package julia-repl
   :ensure t
+  :after vterm
   :config
   (add-hook 'julia-mode-hook 'julia-repl-mode)
   (julia-repl-set-terminal-backend 'vterm)
   (setq vterm-kill-buffer-on-exit nil))
+
 
 ;; Lisp
 (use-package slime
@@ -160,9 +162,22 @@
 ;(autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
 ;(add-hook 'tuareg-mode-hook 'utop-minor-mode)
 
-;; Org-roam
+;; Org
+; Org-Babel
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((python . t)))
+
+; Org-fragtog
+(use-package org-fragtog
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook 'org-fragtog-mode))
+
+; Org-Roam
 (use-package org-roam
   :ensure t
+  :after org
   :init
   (setq org-roam-directory (file-truename "~/Dropbox/notes"))
   (setq org-roam-v2-ack t)
@@ -171,7 +186,15 @@
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert))
   :config
-  (org-roam-setup))
+  (org-roam-setup)
+    :bind (("C-c n f" . org-roam-node-find)
+           ("C-c n r" . org-roam-node-random)		    
+           (:map org-mode-map
+                 (("C-c n i" . org-roam-node-insert)
+                  ("C-c n o" . org-id-get-create)
+                  ("C-c n t" . org-roam-tag-add)
+                  ("C-c n a" . org-roam-alias-add)
+                  ("C-c n l" . org-roam-buffer-toggle)))))
 
 ;; Python
 ; pip3 install jedi rope flake8 autopep8 yapf black
@@ -204,3 +227,7 @@
   :config
   (add-hook 'rust-mode-hook 'cargo-minor-mode))
 
+;; vterm
+; apt install cmake libvterm-dev libtool-bin
+(use-package vterm
+  :ensure t)
