@@ -18,8 +18,9 @@
       mac-command-modifier 'meta
       x-select-enable-clipboard t)
   ;; Homebrew
-  (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
-    (normal-top-level-add-subdirs-to-load-path))
+  (when (file-directory-p "/usr/local/share/emacs/site-lisp")
+    (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+      (normal-top-level-add-subdirs-to-load-path)))
 
   (setq inhibit-startup-screen t)
   (tool-bar-mode -1)
@@ -28,6 +29,8 @@
 
   (setq custom-file "~/.emacs.d/custom-settings.el")
   (load custom-file t)
+
+  (setq make-backup-files nil)
 
   (setq compilation-ask-about-save nil)
   ;; remember to install
@@ -225,9 +228,11 @@
 (use-package cargo
   :ensure t
   :config
-  (add-hook 'rust-mode-hook 'cargo-minor-mode))
+  (add-hook 'rust-mode-hook 'cargo-minor-mode)
+  (setq cargo-process--enable-rust-backtrace t))
 
 ;; vterm
 ; apt install cmake libvterm-dev libtool-bin
 (use-package vterm
   :ensure t)
+
