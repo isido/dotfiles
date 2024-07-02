@@ -10,13 +10,15 @@
 	(package-refresh-contents)
 	(package-install 'use-package))
 
+(setq package-install-upgrade-built-in t)
+
 ;; Misc-configuration
 (use-package emacs
   :init
   ;; macOS-tweaks
   (setq mac-option-modifier nil
-      mac-command-modifier 'meta
-      x-select-enable-clipboard t)
+	mac-command-modifier 'meta
+	x-select-enable-clipboard t)
   ;; Homebrew
   (when (file-directory-p "/usr/local/share/emacs/site-lisp")
     (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
@@ -24,7 +26,7 @@
 
   (setq inhibit-startup-screen t)
   (tool-bar-mode -1)
-;  (set-default-font "Inconsolata-12")
+					;  (set-default-font "Inconsolata-12")
 
 
   (setq custom-file "~/.emacs.d/custom-settings.el")
@@ -36,6 +38,12 @@
   ;; remember to install
   (setq ispell-program-name (executable-find "hunspell")
 	ispell-dictionary "en_GB"))
+
+;; LSP
+(use-package lsp-mode
+  :ensure t)
+(use-package lsp-ui
+  :ensure t)
 
 ;; Auctex
 (use-package tex
@@ -93,7 +101,9 @@
 (use-package haskell-mode
   :ensure t
   :bind (:map haskell-mode-map
-	      ("C-C C-l" . haskell-process-load-file)))
+	      ("C-C C-l" . haskell-process-load-file))
+  :hook (haskell-mode . lsp)
+  (haskell-literate-mode . lsp))
 
 (use-package company-ghci
   :ensure t
