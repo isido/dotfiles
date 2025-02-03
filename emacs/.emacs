@@ -177,30 +177,11 @@
   :config
   (add-hook 'org-mode-hook 'org-fragtog-mode))
 
-; Org-Roam
-(use-package org-roam
-  :ensure t
-  :after org
-  :init
-  (setq org-roam-directory (file-truename "~/Dropbox/notes"))
-  (setq org-roam-v2-ack t)
-  (org-roam-db-autosync-mode)
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n i" . org-roam-node-insert))
-  :config
-  (org-roam-setup)
-    :bind (("C-c n f" . org-roam-node-find)
-           ("C-c n r" . org-roam-node-random)		    
-           (:map org-mode-map
-                 (("C-c n i" . org-roam-node-insert)
-                  ("C-c n o" . org-id-get-create)
-                  ("C-c n t" . org-roam-tag-add)
-                  ("C-c n a" . org-roam-alias-add)
-                  ("C-c n l" . org-roam-buffer-toggle)))))
 
 ;; Python
 ; pip3 install jedi rope flake8 autopep8 yapf black
+; sudo apt install python3-jedi black python3-autopep8 yapf3 python3-yapf
+; sudo zypper install pythonX-jedi pythonX-black pythonX-autopep8 pythonX-yapf
 (use-package elpy
   :ensure t
   :init
@@ -217,7 +198,6 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
-
 
 ;; Rust
 (use-package rust-mode
